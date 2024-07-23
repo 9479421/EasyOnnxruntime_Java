@@ -139,13 +139,13 @@ public class yolov7_OnnxRuntime implements yolov7_OnnxRuntimeImpl{
         //绘制到中间
         BufferedImage paddingImage = new BufferedImage(model_input_width, model_input_height, BufferedImage.TYPE_INT_RGB);
         offsetX = (paddingImage.getWidth() - resizedWidth) / 2;
-        offsetY = (paddingImage.getWidth() - resizedHeight) / 2;
+        offsetY = (paddingImage.getHeight() - resizedHeight) / 2;
         Graphics graphics_padding = paddingImage.createGraphics();
         graphics_padding.drawImage(resizedImage, offsetX, offsetY, resizedWidth, resizedHeight, null);
 
         float[][][] arr = new float[3][model_input_width][model_input_height];
-        for (int i = 0; i < model_input_width; i++) {
-            for (int j = 0; j < model_input_height; j++) {
+        for (int i = 0; i < model_input_height; i++) {
+            for (int j = 0; j < model_input_width; j++) {
                 if (i >= offsetY && j >= offsetX && i < offsetY + resizedHeight
                         && j < offsetX + resizedWidth) {
                     int rgb = resizedImage.getRGB(j - offsetX, i - offsetY);
